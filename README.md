@@ -2,8 +2,14 @@
 
 A node.js SDK for [AlchemyAPI](http://www.alchemyapi.com)
 
-Basically the same as the official one, but with a few additions and
-improvements.
+Basically the same as the [official one](https://github.com/alchemyapi/alchemyapi_node),
+but with a few additions and improvements.
+
+# Installation
+
+```
+npm install node-alchemyapi
+```
 
 # Usage
 
