@@ -35,15 +35,13 @@ function AlchemyAPI(key) {
 };
 
 /**
-  * Makes the call, then converts the returned JSON string into a Javascript object.
-  *
-  * @param endpoint The API endpoint to call
-  * @param params   The call parameters, both required and optional
-  * @param sfile    A file to stream if this is a file upload (optional)
-  * @param callback The callback function
-  *
-  * @return The response, already converted from JSON to a Javascript object.
-*/
+ * Makes the call, then converts the returned JSON string into a Javascript object.
+ *
+ * @param endpoint The API endpoint to call
+ * @param params   The call parameters, both required and optional
+ * @param sfile    A file to stream if this is a file upload (optional)
+ * @param callback The callback function, which receives either an error or the response.
+ */
 AlchemyAPI.prototype.analyze = function analyze(endpoint, params, sfile, callback) {
     var urlKVPairs = [],
         reqParams = '',
@@ -192,18 +190,17 @@ AlchemyAPI.ENDPOINTS = {
 
 
 /**
-  * Extracts the publication date for a URL or HTML.
-  * For the docs, please refer to: http://www.alchemyapi.com/api/publication-date/
-  *
-  * INPUT:
-  * flavor -> which version of the call, i.e. text, url or html.
-  * data -> the data to analyze, either the text, the url or html code.
-  * options -> various parameters that can be used to adjust how the API works, see below for more info on the available options.
-  * callback -> the callback function for this async function
-  *
-  * OUTPUT:
-  * The response, already converted from JSON to a Javascript object.
-*/
+ * Extracts the publication date for a URL or HTML.
+ * For the docs, please refer to: http://www.alchemyapi.com/api/publication-date/
+ *
+ * @param flavor  Which version of the call, i.e. text, url or html.
+ * @param data    The data to analyze, either the text, the url or html code.
+ * @param options Various parameters that can be used to adjust how the API works, see below for more info on the available options.
+ * @param callback The callback function, which receives either an error or the response.
+ *
+ * Available Options:
+ *      none
+ */
 AlchemyAPI.prototype.pub_date = function pubDate(flavor, data, options, callback) {
     options = options || {}
 
@@ -218,28 +215,24 @@ AlchemyAPI.prototype.pub_date = function pubDate(flavor, data, options, callback
 
 
 /**
-  * Extracts the entities for text, a URL or HTML.
-  * For an overview, please refer to: http://www.alchemyapi.com/products/features/entity-extraction/
-  * For the docs, please refer to: http://www.alchemyapi.com/api/entity-extraction/
-  *
-  * INPUT:
-  * flavor -> which version of the call, i.e. text, url or html.
-  * data -> the data to analyze, either the text, the url or html code.
-  * options -> various parameters that can be used to adjust how the API works, see below for more info on the available options.
-  * callback -> the callback function for this async function
-  *
-  * Available Options:
-  * disambiguate -> disambiguate entities (i.e. Apple the company vs. apple the fruit). 0: disabled, 1: enabled (default)
-  * linkedData -> include linked data on disambiguated entities. 0: disabled, 1: enabled (default)
-  * coreference -> resolve coreferences (i.e. the pronouns that correspond to named entities). 0: disabled, 1: enabled (default)
-  * quotations -> extract quotations by entities. 0: disabled (default), 1: enabled.
-  * sentiment -> analyze sentiment for each entity. 0: disabled (default), 1: enabled. Requires 1 additional API transction if enabled.
-  * showSourceText -> 0: disabled (default), 1: enabled
-  * maxRetrieve -> the maximum number of entities to retrieve (default: 50)
-  *
-  * OUTPUT:
-  * The response, already converted from JSON to a Javascript object.
-*/
+ * Extracts the entities for text, a URL or HTML.
+ * For an overview, please refer to: http://www.alchemyapi.com/products/features/entity-extraction/
+ * For the docs, please refer to: http://www.alchemyapi.com/api/entity-extraction/
+ *
+ * @param flavor  Which version of the call, i.e. text, url or html.
+ * @param data    The data to analyze, either the text, the url or html code.
+ * @param options Various parameters that can be used to adjust how the API works, see below for more info on the available options.
+ * @param callback The callback function, which receives either an error or the response.
+ *
+ * Available Options:
+ *      disambiguate: disambiguate entities (i.e. Apple the company vs. apple the fruit). 0: disabled, 1: enabled (default)
+ *      linkedData: include linked data on disambiguated entities. 0: disabled, 1: enabled (default)
+ *      coreference: resolve coreferences (i.e. the pronouns that correspond to named entities). 0: disabled, 1: enabled (default)
+ *      quotations: extract quotations by entities. 0: disabled (default), 1: enabled.
+ *      sentiment: analyze sentiment for each entity. 0: disabled (default), 1: enabled. Requires 1 additional API transction if enabled.
+ *      showSourceText: 0: disabled (default), 1: enabled
+ *      maxRetrieve: the maximum number of entities to retrieve (default: 50)
+ */
 AlchemyAPI.prototype.entities = function entities(flavor, data, options, callback) {
     options = options || {}
 
@@ -254,25 +247,22 @@ AlchemyAPI.prototype.entities = function entities(flavor, data, options, callbac
 
 
 /**
-  * Extracts the keywords from text, a URL or HTML.
-  * For an overview, please refer to: http://www.alchemyapi.com/products/features/keyword-extraction/
-  * For the docs, please refer to: http://www.alchemyapi.com/api/keyword-extraction/
-  *
-  * INPUT:
-  * flavor -> which version of the call, i.e. text, url or html.
-  * data -> the data to analyze, either the text, the url or html code.
-  * options -> various parameters that can be used to adjust how the API works, see below for more info on the available options.
-  * callback -> the callback function for this async function
-  *
-  * Available Options:
-  * keywordExtractMode -> normal (default), strict
-  * sentiment -> analyze sentiment for each keyword. 0: disabled (default), 1: enabled. Requires 1 additional API transaction if enabled.
-  * showSourceText -> 0: disabled (default), 1: enabled.
-  * maxRetrieve -> the max number of keywords returned (default: 50)
-  *
-  * OUTPUT:
-  * The response, already converted from JSON to a Javascript object.
-*/
+ * Extracts the keywords from text, a URL or HTML.
+ * For an overview, please refer to: http://www.alchemyapi.com/products/features/keyword-extraction/
+ * For the docs, please refer to: http://www.alchemyapi.com/api/keyword-extraction/
+ *
+ * @param flavor  Which version of the call, i.e. text, url or html.
+ * @param data    The data to analyze, either the text, the url or html code.
+ * @param options Various parameters that can be used to adjust how the API works, see below for more info on the available options.
+ * @param callback The callback function, which receives either an error or the response.
+ *
+ * Available Options:
+ *      maxRetrieve: the max number of keywords returned (default: 50)
+ *      keywordExtractMode:  normal (default), strict
+ *      sentiment: analyze sentiment for each keyword. 0: disabled (default), 1: enabled. Requires 1 additional API transaction if enabled.
+ *      showSourceText: 0: disabled (default), 1: enabled.
+ *      sourceText: where to obtain the text that will be processed by this API call.
+ */
 AlchemyAPI.prototype.keywords = function keywords(flavor, data, options, callback) {
     options = options || {}
 
@@ -287,24 +277,20 @@ AlchemyAPI.prototype.keywords = function keywords(flavor, data, options, callbac
 
 
 /**
-  * Tags the concepts for text, a URL or HTML.
-  * For an overview, please refer to: http://www.alchemyapi.com/products/features/concept-tagging/
-  * For the docs, please refer to: http://www.alchemyapi.com/api/concept-tagging/
-  *
-  * INPUT:
-  * flavor -> which version of the call, i.e. text, url or html.
-  * data -> the data to analyze, either the text, the url or html code.
-  * options -> various parameters that can be used to adjust how the API works, see below for more info on the available options.
-  * callback -> the callback function for this async function
-  *
-  * Available Options:
-  * maxRetrieve -> the maximum number of concepts to retrieve (default: 8)
-  * linkedData -> include linked data, 0: disabled, 1: enabled (default)
-  * showSourceText -> 0:disabled (default), 1: enabled
-  *
-  * OUTPUT:
-  * The response, already converted from JSON to a Javascript object.
-*/
+ * Tags the concepts for text, a URL or HTML.
+ * For an overview, please refer to: http://www.alchemyapi.com/products/features/concept-tagging/
+ * For the docs, please refer to: http://www.alchemyapi.com/api/concept-tagging/
+ *
+ * @param flavor  Which version of the call, i.e. text, url or html.
+ * @param data    The data to analyze, either the text, the url or html code.
+ * @param options Various parameters that can be used to adjust how the API works, see below for more info on the available options.
+ * @param callback The callback function, which receives either an error or the response.
+ *
+ * Available Options:
+ *      maxRetrieve: the maximum number of concepts to retrieve (default: 8)
+ *      linkedData: include linked data, 0: disabled, 1: enabled (default)
+ *      showSourceText: 0:disabled (default), 1: enabled
+ */
 AlchemyAPI.prototype.concepts = function concepts(flavor, data, options, callback) {
     options = options || {}
 
@@ -319,22 +305,18 @@ AlchemyAPI.prototype.concepts = function concepts(flavor, data, options, callbac
 
 
 /**
-  * Calculates the sentiment for text, a URL or HTML.
-  * For an overview, please refer to: http://www.alchemyapi.com/products/features/sentiment-analysis/
-  * For the docs, please refer to: http://www.alchemyapi.com/api/sentiment-analysis/
-  *
-  * INPUT:
-  * flavor -> which version of the call, i.e. text, url or html.
-  * data -> the data to analyze, either the text, the url or html code.
-  * options -> various parameters that can be used to adjust how the API works, see below for more info on the available options.
-  * callback -> the callback function for this async function
-  *
-  * Available Options:
-  * showSourceText -> 0: disabled (default), 1: enabled
-  *
-  * OUTPUT:
-  * The response, already converted from JSON to a Javascript object.
-*/
+ * Calculates the sentiment for text, a URL or HTML.
+ * For an overview, please refer to: http://www.alchemyapi.com/products/features/sentiment-analysis/
+ * For the docs, please refer to: http://www.alchemyapi.com/api/sentiment-analysis/
+ *
+ * @param flavor  Which version of the call, i.e. text, url or html.
+ * @param data    The data to analyze, either the text, the url or html code.
+ * @param options Various parameters that can be used to adjust how the API works, see below for more info on the available options.
+ * @param callback The callback function, which receives either an error or the response.
+ *
+ * Available Options:
+ *      showSourceText: 0: disabled (default), 1: enabled
+ */
 AlchemyAPI.prototype.sentiment = function sentiment(flavor, data, options, callback) {
     options = options || {}
 
@@ -349,23 +331,18 @@ AlchemyAPI.prototype.sentiment = function sentiment(flavor, data, options, callb
 
 
 /**
-  * Calculates the targeted sentiment for text, a URL or HTML.
-  * For an overview, please refer to: http://www.alchemyapi.com/products/features/sentiment-analysis/
-  * For the docs, please refer to: http://www.alchemyapi.com/api/sentiment-analysis/
-  *
-  * INPUT:
-  * flavor -> which version of the call, i.e. text, url or html.
-  * data -> the data to analyze, either the text, the url or html code.
-  * target -> the word or phrase to run sentiment analysis on.
-  * options -> various parameters that can be used to adjust how the API works, see below for more info on the available options.
-  * callback -> the callback function for this async function
-  *
-  * Available Options:
-  * showSourceText  -> 0: disabled, 1: enabled
-  *
-  * OUTPUT:
-  * The response, already converted from JSON to a Javascript object.
-*/
+ * Calculates the targeted sentiment for text, a URL or HTML.
+ * For an overview, please refer to: http://www.alchemyapi.com/products/features/sentiment-analysis/
+ * For the docs, please refer to: http://www.alchemyapi.com/api/sentiment-analysis/
+ *
+ * @param flavor  Which version of the call, i.e. text, url or html.
+ * @param data    The data to analyze, either the text, the url or html code.
+ * @param options Various parameters that can be used to adjust how the API works, see below for more info on the available options.
+ * @param callback The callback function, which receives either an error or the response.
+ *
+ * Available Options:
+ *      showSourceText: 0: disabled, 1: enabled
+ */
 AlchemyAPI.prototype.sentiment_targeted = function sentimentTargeted(flavor, data, target, options, callback) {
     options = options || {}
 
@@ -383,23 +360,19 @@ AlchemyAPI.prototype.sentiment_targeted = function sentimentTargeted(flavor, dat
 
 
 /**
-  * Extracts the cleaned text (removes ads, navigation, etc.) for a URL or HTML.
-  * For an overview, please refer to: http://www.alchemyapi.com/products/features/text-extraction/
-  * For the docs, please refer to: http://www.alchemyapi.com/api/text-extraction/
-  *
-  * INPUT:
-  * flavor -> which version of the call, i.e. url or html.
-  * data -> the data to analyze, either the url or html code.
-  * options -> various parameters that can be used to adjust how the API works, see below for more info on the available options.
-  * callback -> the callback function for this async function
-  *
-  * Available Options:
-  * useMetadata -> utilize meta description data, 0: disabled, 1: enabled (default)
-  * extractLinks -> include links, 0: disabled (default), 1: enabled.
-  *
-  * OUTPUT:
-  * The response, already converted from JSON to a Javascript object.
-*/
+ * Extracts the cleaned text (removes ads, navigation, etc.) for a URL or HTML.
+ * For an overview, please refer to: http://www.alchemyapi.com/products/features/text-extraction/
+ * For the docs, please refer to: http://www.alchemyapi.com/api/text-extraction/
+ *
+ * @param flavor  Which version of the call, i.e. text, url or html.
+ * @param data    The data to analyze, either the text, the url or html code.
+ * @param options Various parameters that can be used to adjust how the API works, see below for more info on the available options.
+ * @param callback The callback function, which receives either an error or the response.
+ *
+ * Available Options:
+ *      useMetadata: utilize meta description data, 0: disabled, 1: enabled (default)
+ *      extractLinks: include links, 0: disabled (default), 1: enabled.
+ */
 AlchemyAPI.prototype.text = function text(flavor, data, options, callback) {
     options = options || {}
 
@@ -414,22 +387,18 @@ AlchemyAPI.prototype.text = function text(flavor, data, options, callback) {
 
 
 /**
-  * Extracts the raw text (includes ads, navigation, etc.) for a URL or HTML.
-  * For an overview, please refer to: http://www.alchemyapi.com/products/features/text-extraction/
-  * For the docs, please refer to: http://www.alchemyapi.com/api/text-extraction/
-  *
-  * INPUT:
-  * flavor -> which version of the call, i.e. url or html.
-  * data -> the data to analyze, either the url or html code.
-  * options -> various parameters that can be used to adjust how the API works, see below for more info on the available options.
-  * callback -> the callback function for this async function
-  *
-  * Available Options:
-  * none
-  *
-  * OUTPUT:
-  * The response, already converted from JSON to a Javascript object.
-*/
+ * Extracts the raw text (includes ads, navigation, etc.) for a URL or HTML.
+ * For an overview, please refer to: http://www.alchemyapi.com/products/features/text-extraction/
+ * For the docs, please refer to: http://www.alchemyapi.com/api/text-extraction/
+ *
+ * @param flavor  Which version of the call, i.e. text, url or html.
+ * @param data    The data to analyze, either the text, the url or html code.
+ * @param options Various parameters that can be used to adjust how the API works, see below for more info on the available options.
+ * @param callback The callback function, which receives either an error or the response.
+ *
+ * Available Options:
+ *      none
+ */
 AlchemyAPI.prototype.text_raw = function textRaw(flavor, data, options, callback) {
     options = options || {}
 
@@ -444,22 +413,18 @@ AlchemyAPI.prototype.text_raw = function textRaw(flavor, data, options, callback
 
 
 /**
-  * Extracts the author from a URL or HTML.
-  * For an overview, please refer to: http://www.alchemyapi.com/products/features/author-extraction/
-  * For the docs, please refer to: http://www.alchemyapi.com/api/author-extraction/
-  *
-  * INPUT:
-  * flavor -> which version of the call, i.e. url or html.
-  * data -> the data to analyze, either the the url or html code.
-  * options -> various parameters that can be used to adjust how the API works, see below for more info on the available options.
-  * callback -> the callback function for this async function
-  *
-  * Availble Options:
-  * none
-  *
-  * OUTPUT:
-  * The response, already converted from JSON to a Javascript object.
-*/
+ * Extracts the author from a URL or HTML.
+ * For an overview, please refer to: http://www.alchemyapi.com/products/features/author-extraction/
+ * For the docs, please refer to: http://www.alchemyapi.com/api/author-extraction/
+ *
+ * @param flavor  Which version of the call, i.e. text, url or html.
+ * @param data    The data to analyze, either the text, the url or html code.
+ * @param options Various parameters that can be used to adjust how the API works, see below for more info on the available options.
+ * @param callback The callback function, which receives either an error or the response.
+ *
+ * Available Options:
+ *      none
+ */
 AlchemyAPI.prototype.author = function author(flavor, data, options, callback) {
     options = options || {}
 
@@ -474,22 +439,18 @@ AlchemyAPI.prototype.author = function author(flavor, data, options, callback) {
 
 
 /**
-  * Detects the language for text, a URL or HTML.
-  * For an overview, please refer to: http://www.alchemyapi.com/api/language-detection/
-  * For the docs, please refer to: http://www.alchemyapi.com/products/features/language-detection/
-  *
-  * INPUT:
-  * flavor -> which version of the call, i.e. text, url or html.
-  * data -> the data to analyze, either the text, the url or html code.
-  * options -> various parameters that can be used to adjust how the API works, see below for more info on the available options.
-  * callback -> the callback function for this async function
-  *
-  * Available Options:
-  * none
-  *
-  * OUTPUT:
-  * The response, already converted from JSON to a Javascript object.
-*/
+ * Detects the language for text, a URL or HTML.
+ * For an overview, please refer to: http://www.alchemyapi.com/api/language-detection/
+ * For the docs, please refer to: http://www.alchemyapi.com/products/features/language-detection/
+ *
+ * @param flavor  Which version of the call, i.e. text, url or html.
+ * @param data    The data to analyze, either the text, the url or html code.
+ * @param options Various parameters that can be used to adjust how the API works, see below for more info on the available options.
+ * @param callback The callback function, which receives either an error or the response.
+ *
+ * Available Options:
+ *      none
+ */
 AlchemyAPI.prototype.language = function language(flavor, data, options, callback) {
     options = options || {}
 
@@ -504,22 +465,18 @@ AlchemyAPI.prototype.language = function language(flavor, data, options, callbac
 
 
 /**
-  * Extracts the title for a URL or HTML.
-  * For an overview, please refer to: http://www.alchemyapi.com/products/features/text-extraction/
-  * For the docs, please refer to: http://www.alchemyapi.com/api/text-extraction/
-  *
-  * INPUT:
-  * flavor -> which version of the call, i.e. url or html.
-  * data -> the data to analyze, either the url or html code.
-  * options -> various parameters that can be used to adjust how the API works, see below for more info on the available options.
-  * callback -> the callback function for this async function
-  *
-  * Available Options:
-  * useMetadata -> utilize title info embedded in meta data, 0: disabled, 1: enabled (default)
-  *
-  * OUTPUT:
-  * The response, already converted from JSON to a Javascript object.
-*/
+ * Extracts the title for a URL or HTML.
+ * For an overview, please refer to: http://www.alchemyapi.com/products/features/text-extraction/
+ * For the docs, please refer to: http://www.alchemyapi.com/api/text-extraction/
+ *
+ * @param flavor  Which version of the call, i.e. text, url or html.
+ * @param data    The data to analyze, either the text, the url or html code.
+ * @param options Various parameters that can be used to adjust how the API works, see below for more info on the available options.
+ * @param callback The callback function, which receives either an error or the response.
+ *
+ * Available Options:
+ *      useMetadata: utilize title info embedded in meta data, 0: disabled, 1: enabled (default)
+ */
 AlchemyAPI.prototype.title = function title(flavor, data, options, callback) {
     options = options || {}
 
@@ -534,31 +491,27 @@ AlchemyAPI.prototype.title = function title(flavor, data, options, callback) {
 
 
 /**
-  * Extracts the relations for text, a URL or HTML.
-  * For an overview, please refer to: http://www.alchemyapi.com/products/features/relation-extraction/
-  * For the docs, please refer to: http://www.alchemyapi.com/api/relation-extraction/
-  *
-  * INPUT:
-  * flavor -> which version of the call, i.e. text, url or html.
-  * data -> the data to analyze, either the text, the url or html code.
-  * options -> various parameters that can be used to adjust how the API works, see below for more info on the available options.
-  * callback -> the callback function for this async function
-  *
-  * Available Options:
-  * sentiment -> 0: disabled (default), 1: enabled. Requires one additional API transaction if enabled.
-  * keywords -> extract keywords from the subject and object. 0: disabled (default), 1: enabled. Requires one additional API transaction if enabled.
-  * entities -> extract entities from the subject and object. 0: disabled (default), 1: enabled. Requires one additional API transaction if enabled.
-  * requireEntities -> only extract relations that have entities. 0: disabled (default), 1: enabled.
-  * sentimentExcludeEntities -> exclude full entity name in sentiment analysis. 0: disabled, 1: enabled (default)
-  * disambiguate -> disambiguate entities (i.e. Apple the company vs. apple the fruit). 0: disabled, 1: enabled (default)
-  * linkedData -> include linked data with disambiguated entities. 0: disabled, 1: enabled (default).
-  * coreference -> resolve entity coreferences. 0: disabled, 1: enabled (default)
-  * showSourceText -> 0: disabled (default), 1: enabled.
-  * maxRetrieve -> the maximum number of relations to extract (default: 50, max: 100)
-  *
-  * OUTPUT:
-  * The response, already converted from JSON to a Javascript object.
-*/
+ * Extracts the relations for text, a URL or HTML.
+ * For an overview, please refer to: http://www.alchemyapi.com/products/features/relation-extraction/
+ * For the docs, please refer to: http://www.alchemyapi.com/api/relation-extraction/
+ *
+ * @param flavor  Which version of the call, i.e. text, url or html.
+ * @param data    The data to analyze, either the text, the url or html code.
+ * @param options Various parameters that can be used to adjust how the API works, see below for more info on the available options.
+ * @param callback The callback function, which receives either an error or the response.
+ *
+ * Available Options:
+ *      sentiment: 0: disabled (default), 1: enabled. Requires one additional API transaction if enabled.
+ *      keywords: extract keywords from the subject and object. 0: disabled (default), 1: enabled. Requires one additional API transaction if enabled.
+ *      entities: extract entities from the subject and object. 0: disabled (default), 1: enabled. Requires one additional API transaction if enabled.
+ *      requireEntities: only extract relations that have entities. 0: disabled (default), 1: enabled.
+ *      sentimentExcludeEntities: exclude full entity name in sentiment analysis. 0: disabled, 1: enabled (default)
+ *      disambiguate: disambiguate entities (i.e. Apple the company vs. apple the fruit). 0: disabled, 1: enabled (default)
+ *      linkedData: include linked data with disambiguated entities. 0: disabled, 1: enabled (default).
+ *      coreference: resolve entity coreferences. 0: disabled, 1: enabled (default)
+ *      showSourceText: 0: disabled (default), 1: enabled.
+ *      maxRetrieve: the maximum number of relations to extract (default: 50, max: 100)
+ */
 AlchemyAPI.prototype.relations = function relations(flavor, data, options, callback) {
     options = options || {}
 
@@ -573,22 +526,18 @@ AlchemyAPI.prototype.relations = function relations(flavor, data, options, callb
 
 
 /**
-  * Categorizes the text for text, a URL or HTML.
-  * For an overview, please refer to: http://www.alchemyapi.com/products/features/text-categorization/
-  * For the docs, please refer to: http://www.alchemyapi.com/api/text-categorization/
-  *
-  * INPUT:
-  * flavor -> which version of the call, i.e. text, url or html.
-  * data -> the data to analyze, either the text, the url or html code.
-  * options -> various parameters that can be used to adjust how the API works, see below for more info on the available options.
-  * callback -> the callback function for this async function
-  *
-  * Available Options:
-  * showSourceText -> 0: disabled (default), 1: enabled
-  *
-  * OUTPUT:
-  * The response, already converted from JSON to a Javascript object.
-*/
+ * Categorizes the text for text, a URL or HTML.
+ * For an overview, please refer to: http://www.alchemyapi.com/products/features/text-categorization/
+ * For the docs, please refer to: http://www.alchemyapi.com/api/text-categorization/
+ *
+ * @param flavor  Which version of the call, i.e. text, url or html.
+ * @param data    The data to analyze, either the text, the url or html code.
+ * @param options Various parameters that can be used to adjust how the API works, see below for more info on the available options.
+ * @param callback The callback function, which receives either an error or the response.
+ *
+ * Available Options:
+ *      showSourceText: 0: disabled (default), 1: enabled
+ */
 AlchemyAPI.prototype.category = function category(flavor, data, options, callback) {
     options = options || {}
 
@@ -603,22 +552,18 @@ AlchemyAPI.prototype.category = function category(flavor, data, options, callbac
 
 
 /**
-  * Detects the RSS/ATOM feeds for a URL or HTML.
-  * For an overview, please refer to: http://www.alchemyapi.com/products/features/feed-detection/
-  * For the docs, please refer to: http://www.alchemyapi.com/api/feed-detection/
-  *
-  * INPUT:
-  * flavor -> which version of the call, i.e.  url or html.
-  * data -> the data to analyze, either the the url or html code.
-  * options -> various parameters that can be used to adjust how the API works, see below for more info on the available options.
-  * callback -> the callback function for this async function
-  *
-  * Available Options:
-  * none
-  *
-  * OUTPUT:
-  * The response, already converted from JSON to a Javascript object.
-*/
+ * Detects the RSS/ATOM feeds for a URL or HTML.
+ * For an overview, please refer to: http://www.alchemyapi.com/products/features/feed-detection/
+ * For the docs, please refer to: http://www.alchemyapi.com/api/feed-detection/
+ *
+ * @param flavor  Which version of the call, i.e. text, url or html.
+ * @param data    The data to analyze, either the text, the url or html code.
+ * @param options Various parameters that can be used to adjust how the API works, see below for more info on the available options.
+ * @param callback The callback function, which receives either an error or the response.
+ *
+ * Available Options:
+ *      none
+ */
 AlchemyAPI.prototype.feeds = function feeds(flavor, data, options, callback) {
     options = options || {}
 
@@ -633,22 +578,18 @@ AlchemyAPI.prototype.feeds = function feeds(flavor, data, options, callback) {
 
 
 /**
-  * Parses the microformats for a URL or HTML.
-  * For an overview, please refer to: http://www.alchemyapi.com/products/features/microformats-parsing/
-  * For the docs, please refer to: http://www.alchemyapi.com/api/microformats-parsing/
-  *
-  * INPUT:
-  * flavor -> which version of the call, i.e.  url or html.
-  * data -> the data to analyze, either the the url or html code.
-  * options -> various parameters that can be used to adjust how the API works, see below for more info on the available options.
-  * callback -> the callback function for this async function
-  *
-  * Available Options:
-  * none
-  *
-  * OUTPUT:
-  * The response, already converted from JSON to a Javascript object.
-*/
+ * Parses the microformats for a URL or HTML.
+ * For an overview, please refer to: http://www.alchemyapi.com/products/features/microformats-parsing/
+ * For the docs, please refer to: http://www.alchemyapi.com/api/microformats-parsing/
+ *
+ * @param flavor  Which version of the call, i.e. text, url or html.
+ * @param data    The data to analyze, either the text, the url or html code.
+ * @param options Various parameters that can be used to adjust how the API works, see below for more info on the available options.
+ * @param callback The callback function, which receives either an error or the response.
+ *
+ * Available Options:
+ *      none
+ */
 AlchemyAPI.prototype.microformats = function microformats(flavor, data, options, callback) {
     options = options || {}
 
@@ -663,20 +604,16 @@ AlchemyAPI.prototype.microformats = function microformats(flavor, data, options,
 
 
 /**
-  * Categorized through the taxonomy call for text, HTML, or a URL.
-  *
-  * INPUT:
-  * flavor -> which version of the call (currently, only 'url' is supported)
-  * data -> the data to analyze, either the the url or html code.
-  * options -> various parameters that can be used to adjust how the API works, see below for more info on the available options.
-  * callback -> the callback function for this async function
-  *
-  * Available Options:
-  * showSourceText -> 0: disabled (default), 1: enabled.
-  *
-  * OUTPUT:
-  * The response, already converted from JSON to a Javascript object.
-*/
+ * Categorized through the taxonomy call for text, HTML, or a URL.
+ *
+ * @param flavor  Which version of the call, i.e. text, url or html.
+ * @param data    The data to analyze, either the text, the url or html code.
+ * @param options Various parameters that can be used to adjust how the API works, see below for more info on the available options.
+ * @param callback The callback function, which receives either an error or the response.
+ *
+ * Available Options:
+ *      showSourceText: 0: disabled (default), 1: enabled.
+ */
 AlchemyAPI.prototype.taxonomy = function taxonomy(flavor, data, options, callback) {
     options = options || {}
 
@@ -687,30 +624,26 @@ AlchemyAPI.prototype.taxonomy = function taxonomy(flavor, data, options, callbac
 
 
 /**
-  * Extracts the combined call for a URL.
-  *
-  * INPUT:
-  * flavor -> which version of the call (currently, only 'url' is supported)
-  * data -> the data to analyze, either the the url or html code.
-  * options -> various parameters that can be used to adjust how the API works, see below for more info on the available options.
-  * callback -> the callback function for this async function
-  *
-  * Available Options:
-  * extract -> VALUE,VALUE,VALUE,... (possible VALUEs: page-image,entity,keyword,title,author,taxonomy,concept,relation,doc-sentiment)
-  * extractMode -> (only applies when 'page-image' VALUE passed to 'extract' option)
-  * trust-metadata: less CPU-intensive, less accurate
-  * always-infer: more CPU-intensive, more accurate
-  * disambiguate -> whether to disambiguate detected entities, 0: disabled, 1: enabled (default)
-  * linkedData -> whether to include Linked Data content links with disambiguated entities, 0: disabled, 1: enabled (default). disambiguate must be enabled to use this.
-  * coreference -> whether to he/she/etc coreferences into detected entities, 0: disabled, 1: enabled (default)
-  * quotations -> whether to enable quotations extraction, 0: disabled (default), 1: enabled
-  * sentiment -> whether to enable entity-level sentiment analysis, 0: disabled (default), 1: enabled. Requires one additional API transaction if enabled.
-  * showSourceText -> 0: disabled (default), 1: enabled.
-  * maxRetrieve -> maximum number of named entities to extract (default: 50)
-  *
-  * OUTPUT:
-  * The response, already converted from JSON to a Javascript object.
-*/
+ * Extracts the combined call for a URL.
+ *
+ * @param flavor  Which version of the call, i.e. text, url or html.
+ * @param data    The data to analyze, either the text, the url or html code.
+ * @param options Various parameters that can be used to adjust how the API works, see below for more info on the available options.
+ * @param callback The callback function, which receives either an error or the response.
+ *
+ * Available Options:
+ *      extract: VALUE,VALUE,VALUE,... (possible VALUEs: page-image,entity,keyword,title,author,taxonomy,concept,relation,doc-sentiment)
+ *      extractMode: (only applies when 'page-image' VALUE passed to 'extract' option)
+ *      trust-metadata: less CPU-intensive, less accurate
+ *      always-infer: more CPU-intensive, more accurate
+ *      disambiguate: whether to disambiguate detected entities, 0: disabled, 1: enabled (default)
+ *      linkedData: whether to include Linked Data content links with disambiguated entities, 0: disabled, 1: enabled (default). disambiguate must be enabled to use this.
+ *      coreference: whether to he/she/etc coreferences into detected entities, 0: disabled, 1: enabled (default)
+ *      quotations: whether to enable quotations extraction, 0: disabled (default), 1: enabled
+ *      sentiment: whether to enable entity-level sentiment analysis, 0: disabled (default), 1: enabled. Requires one additional API transaction if enabled.
+ *      showSourceText: 0: disabled (default), 1: enabled.
+ *      maxRetrieve: maximum number of named entities to extract (default: 50)
+ */
 AlchemyAPI.prototype.combined = function combined(flavor, data, options, callback) {
     options = options || {}
 
@@ -721,20 +654,16 @@ AlchemyAPI.prototype.combined = function combined(flavor, data, options, callbac
 
 
 /**
-  * Extracts images from a URL.
-  *
-  * INPUT:
-  * flavor -> which version of the call (currently, only 'url' is supported)
-  * data -> the data to analyze, either the the url or html code.
-  * options -> various parameters that can be used to adjust how the API works, see below for more info on the available options.
-  * callback -> the callback function for this async function
-  *
-  * Available Options:
-  * extractMode -> trust-metadata: less CPU-intensive and less accurate, always-infer: more CPU-intensive and more accurate
-  *
-  * OUTPUT:
-  * The response, already converted from JSON to a Javascript object.
-*/
+ * Extracts images from a URL.
+ *
+ * @param flavor  Which version of the call, i.e. text, url or html.
+ * @param data    The data to analyze, either the text, the url or html code.
+ * @param options Various parameters that can be used to adjust how the API works, see below for more info on the available options.
+ * @param callback The callback function, which receives either an error or the response.
+ *
+ * Available Options:
+ *      extractMode: trust-metadata: less CPU-intensive and less accurate, always-infer: more CPU-intensive and more accurate
+ */
 AlchemyAPI.prototype.image = function image(flavor, data, options, callback) {
     options = options || {}
 
@@ -745,21 +674,17 @@ AlchemyAPI.prototype.image = function image(flavor, data, options, callback) {
 
 
 /**
-  * Tags image with keywords
-  *
-  * INPUT:
-  * flavor -> which version of the call (currently, only 'url' or 'image' is supported)
-  * data -> the URL to the data to analyze.
-  * options -> various parameters that can be used to adjust how the API works, see below for more info on the available options.
-  * callback -> the callback function for this async function
-  *
-  * Available Options:
-  * extractMode -> trust-metadata: less CPU-intensive and less accurate, always-infer: more CPU-intensive and more accurate
-  * imagePostMode -> not-raw: pass an unencoded image file with "image=URI_ENCODED_DATA"; raw: pass an unencoded image file using POST ('image' flavor only).
-  *
-  * OUTPUT:
-  * The response of keywords, already converted from JSON to a Javascript object.
-*/
+ * Tags image with keywords
+ *
+ * @param flavor  Which version of the call, i.e. text, url or html.
+ * @param data    The data to analyze, either the text, the url or html code.
+ * @param options Various parameters that can be used to adjust how the API works, see below for more info on the available options.
+ * @param callback The callback function, which receives either an error or the response.
+ *
+ * Available Options:
+ *      extractMode: trust-metadata: less CPU-intensive and less accurate, always-infer: more CPU-intensive and more accurate
+ *      imagePostMode: not-raw: pass an unencoded image file with "image=URI_ENCODED_DATA"; raw: pass an unencoded image file using POST ('image' flavor only).
+ */
 AlchemyAPI.prototype.image_keywords = function imageKeywords(flavor, data, options, callback) {
     options = options || {}
 
