@@ -27,8 +27,7 @@ const API_BASE_URL = '/calls';
 function AlchemyAPI(key) {
     // Make sure the key formating looks good
     if (key.length != 40) {
-        console.log('Invalid key. If you do not have a key, register for one at: http://www.alchemyapi.com/api/register.html');
-        process.exit(1);
+        throw new Error('Invalid key. If you do not have a key, register for one at: http://www.alchemyapi.com/api/register.html');
     }
 
     // save the API key
