@@ -117,6 +117,10 @@ AlchemyAPI.ENDPOINTS = {
         'url':  '/url/URLGetAuthor',
         'html': '/html/HTMLGetAuthor'
     },
+    'authors': {
+        'url':  '/url/URLGetAuthors',
+        'html': '/html/HTMLGetAuthors'
+    },
     'keywords': {
         'url':  '/url/URLGetRankedKeywords',
         'text': '/text/TextGetRankedKeywords',
@@ -417,6 +421,8 @@ AlchemyAPI.prototype.text_raw = function textRaw(flavor, data, options, callback
  * For an overview, please refer to: http://www.alchemyapi.com/products/features/author-extraction/
  * For the docs, please refer to: http://www.alchemyapi.com/api/author-extraction/
  *
+ * @deprecated
+ *
  * @param flavor  Which version of the call, i.e. text, url or html.
  * @param data    The data to analyze, either the text, the url or html code.
  * @param options Various parameters that can be used to adjust how the API works, see below for more info on the available options.
@@ -434,6 +440,32 @@ AlchemyAPI.prototype.author = function author(flavor, data, options, callback) {
         //Add the data to the options and analyze
         options[flavor] = data;
         this.analyze(AlchemyAPI.ENDPOINTS['author'][flavor], options, callback);
+    }
+};
+
+
+/**
+ * Extracts the authors from a URL or HTML.
+ * For an overview, please refer to: http://www.alchemyapi.com/products/features/authors-extraction/
+ * For the docs, please refer to: http://www.alchemyapi.com/api/authors-extraction/
+ *
+ * @param flavor  Which version of the call, i.e. text, url or html.
+ * @param data    The data to analyze, either the text, the url or html code.
+ * @param options Various parameters that can be used to adjust how the API works, see below for more info on the available options.
+ * @param callback The callback function, which receives either an error or the response.
+ *
+ * Available Options:
+ *      none
+ */
+AlchemyAPI.prototype.authors = function authors(flavor, data, options, callback) {
+    options = options || {}
+
+    if (!(flavor in AlchemyAPI.ENDPOINTS['authors'])) {
+        callback({ status:'ERROR', statusInfo:'Authors extraction is not available for ' + flavor });
+    } else {
+        //Add the data to the options and analyze
+        options[flavor] = data;
+        this.analyze(AlchemyAPI.ENDPOINTS['authors'][flavor], options, callback);
     }
 };
 
