@@ -86,7 +86,13 @@ AlchemyAPI.prototype.analyze = function analyze(endpoint, params, sfile, callbac
         var response = '';
         res.setEncoding('utf8');
         res.on('data', function (chunk) { response += chunk; });
-        res.on('end', function () { callback(JSON.parse(response)); });
+        res.on('end', function () {
+            try {
+                callback(JSON.parse(response));
+            } catch (e) {
+                callback({ status:'ERROR', statusInfo: e });
+            }
+        });
         res.on('error', function (err) {
             callback({ status:'ERROR', statusInfo: err });
         });
