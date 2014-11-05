@@ -7,5 +7,12 @@
       "email" : "contact@kevingomez.fr",
       "url" : "http://www.kevingomez.fr"
   },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/K-Phoen/node-alchemyapi.git"
+  },
+  "bugs": {
+    "url": "https://github.com/K-Phoen/node-alchemyapi/issues"
+  },
   "main": "./alchemyapi.js"
 }
