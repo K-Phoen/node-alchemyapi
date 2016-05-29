@@ -5,6 +5,12 @@ A node.js SDK for [AlchemyAPI](http://www.alchemyapi.com)
 Basically the same as the [official one](https://github.com/alchemyapi/alchemyapi_node),
 but with a few additions and improvements.
 
+# Status
+
+This project is **DEPRECATED** and should NOT be used. 
+
+If someone magically appears and wants to maintain this project, I'll gladly give access to this repository.
+
 # Installation
 
 ```
